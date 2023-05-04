@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 @Controller
 @RequestMapping("api")
@@ -17,8 +17,24 @@ public class ProjecteControlador {
     @GetMapping("projectes")
     public String projectes(Model model) {
         model.addAttribute("projectes", repositoriProjectes.findAll());
-        return "llista_projectes";
+        return "projectes/llista_projectes";
     }
+
+    @GetMapping("projectes/nou")
+    public String mostrarFormulariProjecte(Model model) {
+        Projecte projecte = new Projecte();
+        model.addAttribute("projecte", projecte);
+        return "projectes/nouProjecte";
+    }
+
+    @PostMapping("/projectes/alta")
+    public String altaProjecte(Projecte projecte, Model model) {
+        repositoriProjectes.save(projecte);
+        //fem redirecció per a evitar duplicats
+        return "redirect:/api/projectes";
+    }
+
+    //Exemples
     @GetMapping("hola")
     public String holaMon() {
         return "template.html";

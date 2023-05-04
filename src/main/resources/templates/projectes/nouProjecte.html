@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<br>
+<div class="container">
+    <form th:action="@{/api/projectes/alta}" th:object="${projecte}" method="POST">
+
+        <div class="form-group row">
+            <input type="text" placeholder="Projecte Nom" th:field="${projecte.nom}">
+        </div>
+
+        <div class="form-group row">
+            <select th:field="${projecte.estat}">
+                <option th:value="PENDENT"> Pendent</option>
+                <option th:value="ENPROCES"> En Procés</option>
+                <option th:value="COMPLETAT"> Completat</option>
+            </select>
+        </div>
+
+        <button class="btn btn-info col-2" type="submit">Enter Project</button>
+
+    </form>
+</div>
+
+</body>
+
+
+</html>
